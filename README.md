@@ -1,3 +1,33 @@
-# interpreter
+# Yet another Lox interpreter
 
-reading "Crafting Interpreters" by Robert Nystrom
+Implementing the [Lox language](https://craftinginterpreters.com/the-lox-language.html) while reading "Crafting Interpreters" by Robert Nystrom.
+
+## 📖 Build and run
+
+You only need the following requirements:
+
+- Python (used 3.12.2)
+
+## 🤝 Contribute
+
+If you want to help the project, you can follow the guidelines in [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## 🎉 Tasks
+
+- [x] Tokens and lexing
+- [x] Abstract syntax trees
+- [x] Recursive descent parsing
+- [x] Prefix and infix expressions
+- [x] Runtime representation of objects
+- [x] Interpreting code using the Visitor pattern
+- [x] Lexical scope
+- [x] Environment chains for storing variables
+- [x] Control flow
+- [x] Functions with parameters
+- [x] Closures
+- [ ] Static variable resolution and error detection
+- [ ] Classes
+- [ ] Constructors
+- [ ] Fields
+- [ ] Methods
+- [ ] Inheritance

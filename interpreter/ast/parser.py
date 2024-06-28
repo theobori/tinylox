@@ -301,7 +301,7 @@ class Parser:
             self.__consume(TokenKind.RIGHT_PAREN, "Expect ')'")
             
             return Grouping(expr)
-        
+
         if self.__match(TokenKind.IDENTIFIER):
             return Variable(self.__peek_previous())
         

@@ -28,7 +28,7 @@ class Interpreter(Visitor):
 
     def __evaluate(self, expr: Expr) -> Any:
         """
-            Evaluate an expression node        
+            Evaluate an expression node
         """
         
         return expr.accept(self)

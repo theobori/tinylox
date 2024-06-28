@@ -8,9 +8,7 @@ def main():
     av = argv[1:]
     ac = len(av)
     
-    if ac < 1:
-        Lox.interpret_repl()
-    elif ac == 1:
+    if ac == 1:
         Lox.interpret_from_file(av[0])
     else:
         exit(1)

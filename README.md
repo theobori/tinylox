@@ -25,9 +25,3 @@ If you want to help the project, you can follow the guidelines in [CONTRIBUTING.
 - [x] Control flow
 - [x] Functions with parameters
 - [x] Closures
-- [ ] Static variable resolution and error detection
-- [ ] Classes
-- [ ] Constructors
-- [ ] Fields
-- [ ] Methods
-- [ ] Inheritance

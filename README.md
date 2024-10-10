@@ -1,5 +1,9 @@
 # Yet another Lox interpreter
 
+[![build](https://github.com/theobori/tinylox/actions/workflows/build.yml/badge.svg)](https://github.com/theobori/tinylox/actions/workflows/build.yml)
+
+[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+
 Implementing the [Lox language](https://craftinginterpreters.com/the-lox-language.html) while reading "Crafting Interpreters" by Robert Nystrom.
 
 ## 📖 Build and run

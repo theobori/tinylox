@@ -29,7 +29,10 @@ TYPES = (
     ("Assign", "Token name, Expr value"),
     ("Unary", f"Token operator, {EXPR_CLASS_NAME} right"),
     ("Variable", "Token name"),
-    ("Call", f"{EXPR_CLASS_NAME} callee, Token paren, List[{EXPR_CLASS_NAME}] arguments")
+    (
+        "Call",
+        f"{EXPR_CLASS_NAME} callee, Token paren, List[{EXPR_CLASS_NAME}] arguments",
+    ),
 )
 
 STATEMENT_CLASS_NAME = "Statement"
@@ -40,44 +43,64 @@ STATEMENTS = (
     ("Return", f"Token keyword, {EXPR_CLASS_NAME} value"),
     ("Var", f"Token name, {EXPR_CLASS_NAME} initializer"),
     ("Block", f"List[{STATEMENT_CLASS_NAME}] statements"),
-    ("If", f"{EXPR_CLASS_NAME} condition, {STATEMENT_CLASS_NAME} then_branch, {STATEMENT_CLASS_NAME} else_branch"),
+    (
+        "If",
+        f"{EXPR_CLASS_NAME} condition, {STATEMENT_CLASS_NAME} then_branch, {STATEMENT_CLASS_NAME} else_branch",
+    ),
     ("While", f"{EXPR_CLASS_NAME} condition, {STATEMENT_CLASS_NAME} body"),
-    ("Function", f"Token name, List[Token] parameters, List[{STATEMENT_CLASS_NAME}] body")
+    (
+        "Function",
+        f"Token name, List[Token] parameters, List[{STATEMENT_CLASS_NAME}] body",
+    ),
 )
 
-def writeln(f: TextIOWrapper, s: str="") -> int:
+
+def writeln(f: TextIOWrapper, s: str = "") -> int:
     return f.write(s + "\n")
+
 
 def write_visitor_interface(f: TextIOWrapper):
     writeln(f, "class Visitor:")
-    
+
     for name, _ in TYPES:
-        writeln(f, "    def visit_" + name.lower() + "_expr(self, expr: " + name + ") -> Any:")
-        writeln(f, "        \"\"\"")
+        writeln(
+            f,
+            "    def visit_" + name.lower() + "_expr(self, expr: " + name + ") -> Any:",
+        )
+        writeln(f, '        """')
         writeln(f, "            Operates on a " + name + " expression")
-        writeln(f, "        \"\"\"")
+        writeln(f, '        """')
         writeln(f)
-        writeln(f, "        raise Exception(\"Not implemented\")")
+        writeln(f, '        raise Exception("Not implemented")')
         writeln(f)
-    
+
     for name, _ in STATEMENTS:
-        writeln(f, "    def visit_" + name.lower() + "_statement(self, statement: " + name + STATEMENT_CLASS_NAME + ") -> Any:")
-        writeln(f, "        \"\"\"")
+        writeln(
+            f,
+            "    def visit_"
+            + name.lower()
+            + "_statement(self, statement: "
+            + name
+            + STATEMENT_CLASS_NAME
+            + ") -> Any:",
+        )
+        writeln(f, '        """')
         writeln(f, "            Operates on a " + name + " statement")
-        writeln(f, "        \"\"\"")
+        writeln(f, '        """')
         writeln(f)
-        writeln(f, "        raise Exception(\"Not implemented\")")
+        writeln(f, '        raise Exception("Not implemented")')
         writeln(f)
+
 
 def write_dataclass(f: TextIOWrapper, base: str, name: str, members: str):
     writeln(f, "@dataclass")
     writeln(f, "class " + name + "(" + base + "):")
-    
-    writeln(f, "    \"\"\"")
+
+    writeln(f, '    """')
     writeln(f, "        " + name + " " + base)
-    writeln(f, "    \"\"\"")
+    writeln(f, '    """')
     writeln(f)
-    
+
     members = members.split(",")
 
     for member in members:
@@ -85,28 +108,32 @@ def write_dataclass(f: TextIOWrapper, base: str, name: str, members: str):
         _type, param = member.split(" ")
 
         writeln(f, "    " + param + ": " + _type)
-    
+
     name = name.replace(base, "")
-    
+
     writeln(f)
     writeln(f, "    def accept(self, visitor: Visitor) -> Any:")
-    writeln(f, "        return visitor.visit_" + name.lower() + "_" + base.lower() + "(self)")
+    writeln(
+        f,
+        "        return visitor.visit_" + name.lower() + "_" + base.lower() + "(self)",
+    )
+
 
 if __name__ == "__main__":
     av = argv[1:]
     ac = len(av)
-    
+
     if ac < 1:
         exit(1)
-    
+
     path = av.pop(0)
-    
+
     with open(path, "w+") as f:
         writeln(f, IMPORTS)
-        
+
         writeln(f, "class Visitor: pass")
         writeln(f)
-        
+
         writeln(f, CLASS_TEMPLATE % EXPR_CLASS_NAME)
 
         for name, members in TYPES:
@@ -117,9 +144,11 @@ if __name__ == "__main__":
         writeln(f)
 
         for name, members in STATEMENTS:
-            write_dataclass(f, STATEMENT_CLASS_NAME, name + STATEMENT_CLASS_NAME, members)
+            write_dataclass(
+                f, STATEMENT_CLASS_NAME, name + STATEMENT_CLASS_NAME, members
+            )
             writeln(f)
 
         writeln(f)
-        
+
         write_visitor_interface(f)

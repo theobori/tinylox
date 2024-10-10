@@ -2,11 +2,12 @@
 
 from typing import Any
 
+
 class Return(RuntimeError):
     """
-        Return exception
+    Return exception
     """
-    
+
     def __init__(self, value: Any):
         self.__value = value
 
